@@ -12,11 +12,21 @@ import { resolveEns } from "./utils/resolve";
 const baseUrl = `${config.dgApiBaseUrl}`;
 
 var numberOfEditions;
+var collabWallet;
 
 export const uploadFile = async (file, AccessToken, momentsData) => {
   // const { title, description,  walletAddresses } = momentsData;
   const { title, description, maxEditions, collabAddress } = momentsData;
   numberOfEditions = maxEditions;
+
+  var resolvedAddress = collabAddress;
+  if (collabAddress.trim().length !== 42 && collabAddress.slice(-3) === "eth") {
+    resolvedAddress = await resolveEns(collabAddress);
+  }
+
+  collabWallet = resolvedAddress;
+
+  console.log("collab wallet: ", collabWallet);
 
   const fileExtension = file.name.split(".").pop();
   const fileType = getTypeOfMedia(file);
@@ -76,6 +86,12 @@ export const uploadFile = async (file, AccessToken, momentsData) => {
       valuesForm: {
         title,
         description,
+        collaborators: [
+          {
+            address: collabWallet,
+            username: "",
+          },
+        ],
       },
       AccessToken,
     });
@@ -166,7 +182,7 @@ const submitEditForm = async ({
     description,
     // collection,
     // thumbnailFile,
-    // collaborators,
+    collaborators,
     // unlockableContent,
   } = valuesForm;
 
@@ -177,7 +193,7 @@ const submitEditForm = async ({
     nftTypeId,
     creatorTypeId
   );
-  // console.log("sale setting: ", saleSetting);
+  console.log("sale setting: ", saleSetting);
 
   const model = {
     // tags,
@@ -185,10 +201,10 @@ const submitEditForm = async ({
     description,
     // collection,
     sioId: config.sio.id, // "05dd4c3b-6635-4694-a4f4-11740b82df65", // "2402b5bd-a955-495b-8f27-7ab614171ef5", // sio.id | // Hope for Justice Sio ig
-    // collaborators: collaborators.map((collaborator) => ({
-    //   address: collaborator.address,
-    //   name: collaborator.username,
-    // })),
+    collaborators: collaborators.map((collaborator) => ({
+      address: collaborator.address,
+      name: collaborator.username,
+    })),
     // thumbnailFile:
     //   thumbnailFile && thumbnailFile?.length > 0 ? thumbnailFile[0] : undefined,
     // unlockableContent,
@@ -237,6 +253,11 @@ const getSalesSettings = async (valuesForm, nftTypeId, creatorTypeId) => {
     creatorShares: [
       {
         id: config.creatorAddress,
+        profit: 0,
+        isLocked: true,
+      },
+      {
+        id: collabWallet,
         profit: 10000,
         isLocked: true,
       },
@@ -266,12 +287,13 @@ const getSalesSettings = async (valuesForm, nftTypeId, creatorTypeId) => {
 
   //    = valuesForm;
 
-  //   const distribution = getDistributionProfit(creatorShares);
+  const distribution = getDistributionProfit(values.creatorShares);
 
-  //   console.log("distribution: ", distribution);
+  console.log("distribution: ", distribution);
 
-  let distribution = {};
-  distribution[config.creatorAddress] = 10000;
+  // let distribution = {};
+  // distribution[config.creatorAddress] = 0;
+  // distribution[collabWallet] = 10000;
 
   // console.log("distribution: ", distribution);
 
@@ -359,13 +381,16 @@ const getLazyMintParams = ({
     expirationTime,
   } = valuesForm;
 
-  const coCreators = [...creatorShares]; //as CreatorProfitForm[]; // equal arrays
+  // const coCreators = [...creatorShares]; //as CreatorProfitForm[]; // equal arrays
   // const creator = coCreators.shift(); // remove the zeroth element and returns it
 
   // const collabs = coCreators.map((collaborator) => collaborator.id);
   // const collabPortions = coCreators.map(
   //   (collaboratorShare) => collaboratorShare.profit
   // );
+
+  const collabs = [collabWallet];
+  console.log("collabs: ", collabs);
 
   const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
@@ -375,8 +400,8 @@ const getLazyMintParams = ({
     nftTypeDefinition: {
       creator: config.creatorAddress, // creator.id, // id of CreatorProfitForm // that was probably eth address
       creatorTypeId, // artwork.creatorArtworkNumber, // number
-      collabs: [], // [] // array of eth addresses of the collaborators // other than the creator
-      collabPortions: [], // [] // array of profits of collabs
+      collabs, // [] // array of eth addresses of the collaborators // other than the creator
+      collabPortions: [10000], // [] // array of profits of collabs
       sioId: config.sio.decentralizedId, // 111, // sio.decentralizedId, // 107 // For Hope of Justice
       maxEditions: editionCount,
       // maxMintsPerAddress: editionCount,
@@ -409,7 +434,7 @@ const Claim = async (nftTypeId, collabAddress) => {
     creatorShares: [
       {
         id: config.creatorAddress,
-        profit: 10000,
+        profit: 0,
         isLocked: true,
       },
     ],
@@ -449,15 +474,8 @@ const Claim = async (nftTypeId, collabAddress) => {
   try {
     const url = `${config.apiBaseUrl}/mintNfcCreation`;
 
-    var resolvedAddress = collabAddress;
-    if (
-      collabAddress.trim().length !== 42 &&
-      collabAddress.slice(-3) === "eth"
-    ) {
-      resolvedAddress = await resolveEns(collabAddress);
-    }
     const post_data = {
-      collabAddress: resolvedAddress,
+      collabAddress: collabWallet,
       nftTypeId,
       params,
     };
