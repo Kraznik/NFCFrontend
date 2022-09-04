@@ -24,7 +24,7 @@ export const claimFromNfc = async (
     };
     const { data } = await axios.post(url, post_data, config.authOptions);
     console.log(data);
-    return navigate(`${nfcId}/claimed`, { replace: true });
+    return navigate(`/${nfcId}/claimed`, { replace: true });
   } catch (err) {
     console.error(err);
     setClaiming(false);

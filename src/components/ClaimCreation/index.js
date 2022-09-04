@@ -4,6 +4,7 @@ import Moment from "../../../src/Moment.svg";
 import { fetchNfcData } from "../../functions/fetchNfc";
 import { Link } from "react-router-dom";
 import { claimFromNfc } from "../../functions/claimFromNfc";
+import { config } from "../../config/config";
 
 const ClaimCreation = () => {
   const { nfcId } = useParams();
@@ -21,7 +22,14 @@ const ClaimCreation = () => {
       <img src={Moment} />
       <h1>Title: {nfcData?.title}</h1>
       <h3>Creator: {nfcData?.wallet}</h3>
-      <p>Description</p>
+      {/* <p>Description</p> */}
+
+      <a
+        href={`${config.dgAppBaseUrl}/creation/${nfcData?.nftTypeId}`}
+        target={"_blank"}
+      >
+        View On DoinGud ->
+      </a>
 
       <form>
         <input

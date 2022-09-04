@@ -23,7 +23,7 @@ const CreationCreated = () => {
 
           <h1>Title: {nfcData?.title}</h1>
           <h3>Creator: {nfcData.wallet}</h3>
-          <p>Description</p>
+          {/* <p>Description</p> */}
           <a
             target={"_blank"}
             href={`${config.dgAppBaseUrl}/creation/${nfcData.nftTypeId}`}
