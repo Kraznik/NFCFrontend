@@ -3,12 +3,15 @@ import { useParams, useNavigate } from "react-router-dom";
 import Moment from "../../../src/Moment.svg";
 import { fetchNfcData } from "../../functions/fetchNfc";
 import { Link } from "react-router-dom";
+import { claimFromNfc } from "../../functions/claimFromNfc";
 
 const ClaimCreation = () => {
   const { nfcId } = useParams();
   const navigate = useNavigate();
   const [nfcData, setNfcData] = useState();
   const [isCreated, setIsCreated] = useState(false);
+  const [enteredWallet, setEnteredWallet] = useState();
+  const [claiming, setClaiming] = useState(false);
 
   useEffect(() => {
     fetchNfcData(nfcId, setIsCreated, navigate, setNfcData);
@@ -21,12 +24,33 @@ const ClaimCreation = () => {
       <p>Description</p>
 
       <form>
-        <input placeholder="kraznik.eth"></input>
+        <input
+          type="text"
+          placeholder="kraznik.eth"
+          className="input"
+          value={enteredWallet}
+          onChange={(e) => {
+            setEnteredWallet(e.target.value);
+          }}
+        ></input>
       </form>
 
-      <button>
-        <Link to="/claimed">Claim Now</Link>
+      <button
+        onClick={() => {
+          claimFromNfc(
+            nfcId,
+            nfcData?.nftTypeId,
+            enteredWallet,
+            setClaiming,
+            navigate
+          );
+        }}
+      >
+        {/* <Link to="/nfcId/claimed">Claim Now</Link> */}
+        Claim Now
       </button>
+
+      {claiming ? <div>Claiming...</div> : null}
     </>
   );
 };

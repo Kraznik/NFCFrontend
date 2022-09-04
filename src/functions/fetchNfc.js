@@ -87,7 +87,7 @@ export const mintNfcCreation = async (
       momentsData.title
     );
 
-    return navigate("/created");
+    return navigate(`/${nfcId}/created`, { replace: true });
   } catch (err) {
     setMinting(false);
     setError(true);
