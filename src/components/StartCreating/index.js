@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate, Navigate } from "react-router-dom";
 import { fetchNfcData } from "../../functions/fetchNfc";
 
 // use title as nftTypeId now
 const StartCreating = () => {
   const { nfcId } = useParams();
+  const navigate = useNavigate();
   const [isCreated, setIsCreated] = useState(false);
 
   useEffect(() => {
-    fetchNfcData(nfcId, setIsCreated);
+    fetchNfcData(nfcId, setIsCreated, navigate);
   }, []);
 
   return (
@@ -21,7 +22,8 @@ const StartCreating = () => {
           </button>
         </>
       ) : (
-        <div>Go to collection</div>
+        // <div>Go to collection</div>
+        <Navigate to={`/${nfcId}/claim`} replace />
       )}
     </>
   );

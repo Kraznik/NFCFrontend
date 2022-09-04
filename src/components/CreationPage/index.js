@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate, Navigate } from "react-router-dom";
+import { config } from "../../config/config";
 import {
   fetchNfcData,
   getAccessToken,
   retrieveFile,
   mintNfcCreation,
 } from "../../functions/fetchNfc";
-import { resolveEns } from "../../functions/utils/resolve";
 
 const CreatePoap = () => {
   const { nfcId } = useParams();
+  const navigate = useNavigate();
   const [isCreated, setIsCreated] = useState(false);
   const [nfcData, setNfcData] = useState();
   const [AccessToken, setAccessToken] = useState();
@@ -27,7 +28,14 @@ const CreatePoap = () => {
   const [Error, setError] = useState(false);
 
   useEffect(() => {
-    fetchNfcData(nfcId, setIsCreated, setNfcData, momentsData, setMomentsData);
+    fetchNfcData(
+      nfcId,
+      setIsCreated,
+      navigate,
+      setNfcData,
+      momentsData,
+      setMomentsData
+    );
     getAccessToken(setAccessToken);
   }, []);
 
@@ -93,16 +101,32 @@ const CreatePoap = () => {
                 setNftTypeId,
                 setError,
                 setMinting,
-                setSuccess
+                setSuccess,
+                navigate
               )
             }
           >
             {/* <Link to="/created">Create</Link> */}
             Create
           </button>
+
+          {minting ? <div>Minting...</div> : null}
+          {Error ? <div>Got some Error...Please try again</div> : null}
+          {success ? (
+            <div>
+              Successfully created! Visit
+              <a
+                target={"_blank"}
+                href={`${config.dgAppBaseUrl}/creation/${nftTypeId}`}
+              >
+                Creation
+              </a>
+            </div>
+          ) : null}
         </>
       ) : (
-        <div>Already created! :D</div>
+        // <div>Already created! :D</div>
+        <Navigate to={`/${nfcId}/claim`} replace />
       )}
     </>
   );

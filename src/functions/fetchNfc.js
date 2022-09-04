@@ -5,6 +5,7 @@ import { uploadFile } from "./creations";
 export const fetchNfcData = async (
   nfcId,
   setIsCreated,
+  navigate,
   setNfcData,
   momentsData,
   setMomentsData
@@ -13,6 +14,7 @@ export const fetchNfcData = async (
     const url = `${config.apiBaseUrl}/nfcId/${nfcId}`;
     const { data } = await axios.get(url, config.authOptions);
     console.log(data);
+    if (data?.error === "NFC Not Found") return navigate("/404/error");
     if (data?.data?.nftTypeId) {
       setIsCreated(true);
     }
@@ -65,7 +67,8 @@ export const mintNfcCreation = async (
   setNftTypeId,
   setError,
   setMinting,
-  setSuccess
+  setSuccess,
+  navigate
 ) => {
   setError(false);
   console.log("minting..");
@@ -83,6 +86,8 @@ export const mintNfcCreation = async (
       momentsData.collabAddress,
       momentsData.title
     );
+
+    return navigate("/created");
   } catch (err) {
     setMinting(false);
     setError(true);
