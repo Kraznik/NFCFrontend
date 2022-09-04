@@ -1,6 +1,6 @@
 // import web3 from "./web3";
 import ABI from "@doingud/contracts/abi/DoinGudDiamondFull.json";
-import { DOINGUD_DIAMOND_ADDRESS } from "@doingud/contracts/dist/adresses";
+// import { DOINGUD_DIAMOND_ADDRESS } from "@doingud/contracts/dist/adresses";
 import { config } from "../config/config";
 const Web3 = require("web3");
 
