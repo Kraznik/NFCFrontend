@@ -1,0 +1,391 @@
+[
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "creator",
+								"type": "address"
+							},
+							{
+								"internalType": "uint48",
+								"name": "creatorTypeId",
+								"type": "uint48"
+							},
+							{
+								"internalType": "address[]",
+								"name": "collabs",
+								"type": "address[]"
+							},
+							{
+								"internalType": "uint16[]",
+								"name": "collabPortions",
+								"type": "uint16[]"
+							},
+							{
+								"internalType": "uint32",
+								"name": "sioId",
+								"type": "uint32"
+							},
+							{
+								"internalType": "uint32",
+								"name": "maxEditions",
+								"type": "uint32"
+							},
+							{
+								"internalType": "uint32",
+								"name": "maxMintsPerAddress",
+								"type": "uint32"
+							},
+							{
+								"internalType": "uint16",
+								"name": "mintPortionSio",
+								"type": "uint16"
+							},
+							{
+								"internalType": "uint16",
+								"name": "resalePortionSio",
+								"type": "uint16"
+							},
+							{
+								"internalType": "uint16",
+								"name": "resalePortionCreator",
+								"type": "uint16"
+							},
+							{
+								"internalType": "bytes",
+								"name": "ipfsCid",
+								"type": "bytes"
+							}
+						],
+						"internalType": "struct NftTypeDefinition",
+						"name": "nftTypeDefinition",
+						"type": "tuple"
+					},
+					{
+						"internalType": "address",
+						"name": "buyer",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "gallery",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numOffered",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "expirationTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "nonce",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct LazyMintParams",
+				"name": "params",
+				"type": "tuple"
+			},
+			{
+				"internalType": "uint32",
+				"name": "amount",
+				"type": "uint32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "donation",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bytes",
+				"name": "creatorSignature",
+				"type": "bytes"
+			},
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "deadline",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "r",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "s",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "uint8",
+						"name": "v",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct PaymentPermit",
+				"name": "paymentPermit",
+				"type": "tuple"
+			}
+		],
+		"name": "buyLazyMint",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "creator",
+								"type": "address"
+							},
+							{
+								"internalType": "uint48",
+								"name": "creatorTypeId",
+								"type": "uint48"
+							},
+							{
+								"internalType": "address[]",
+								"name": "collabs",
+								"type": "address[]"
+							},
+							{
+								"internalType": "uint16[]",
+								"name": "collabPortions",
+								"type": "uint16[]"
+							},
+							{
+								"internalType": "uint32",
+								"name": "sioId",
+								"type": "uint32"
+							},
+							{
+								"internalType": "uint32",
+								"name": "maxEditions",
+								"type": "uint32"
+							},
+							{
+								"internalType": "uint32",
+								"name": "maxMintsPerAddress",
+								"type": "uint32"
+							},
+							{
+								"internalType": "uint16",
+								"name": "mintPortionSio",
+								"type": "uint16"
+							},
+							{
+								"internalType": "uint16",
+								"name": "resalePortionSio",
+								"type": "uint16"
+							},
+							{
+								"internalType": "uint16",
+								"name": "resalePortionCreator",
+								"type": "uint16"
+							},
+							{
+								"internalType": "bytes",
+								"name": "ipfsCid",
+								"type": "bytes"
+							}
+						],
+						"internalType": "struct NftTypeDefinition",
+						"name": "nftTypeDefinition",
+						"type": "tuple"
+					},
+					{
+						"internalType": "address",
+						"name": "buyer",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "gallery",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numOffered",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "expirationTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "nonce",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct LazyMintParams",
+				"name": "params",
+				"type": "tuple"
+			},
+			{
+				"internalType": "address",
+				"name": "buyer",
+				"type": "address"
+			},
+			{
+				"internalType": "uint32",
+				"name": "amount",
+				"type": "uint32"
+			},
+			{
+				"internalType": "bytes",
+				"name": "creatorSignature",
+				"type": "bytes"
+			}
+		],
+		"name": "buyLazyMintByController",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "creator",
+								"type": "address"
+							},
+							{
+								"internalType": "uint48",
+								"name": "creatorTypeId",
+								"type": "uint48"
+							},
+							{
+								"internalType": "address[]",
+								"name": "collabs",
+								"type": "address[]"
+							},
+							{
+								"internalType": "uint16[]",
+								"name": "collabPortions",
+								"type": "uint16[]"
+							},
+							{
+								"internalType": "uint32",
+								"name": "sioId",
+								"type": "uint32"
+							},
+							{
+								"internalType": "uint32",
+								"name": "maxEditions",
+								"type": "uint32"
+							},
+							{
+								"internalType": "uint32",
+								"name": "maxMintsPerAddress",
+								"type": "uint32"
+							},
+							{
+								"internalType": "uint16",
+								"name": "mintPortionSio",
+								"type": "uint16"
+							},
+							{
+								"internalType": "uint16",
+								"name": "resalePortionSio",
+								"type": "uint16"
+							},
+							{
+								"internalType": "uint16",
+								"name": "resalePortionCreator",
+								"type": "uint16"
+							},
+							{
+								"internalType": "bytes",
+								"name": "ipfsCid",
+								"type": "bytes"
+							}
+						],
+						"internalType": "struct NftTypeDefinition",
+						"name": "nftTypeDefinition",
+						"type": "tuple"
+					},
+					{
+						"internalType": "address",
+						"name": "buyer",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "gallery",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numOffered",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "expirationTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "nonce",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct LazyMintParams",
+				"name": "params",
+				"type": "tuple"
+			}
+		],
+		"name": "hashLazyMint",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "hash",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]

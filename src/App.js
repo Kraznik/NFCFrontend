@@ -11,19 +11,13 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<StartCreating />} />
-          <Route path="/create" element={<CreatePoap />} />
+          <Route path="/:nfcId" element={<StartCreating />} />
+          <Route path="/:nfcId/create" element={<CreatePoap />} />
           <Route path="/created" element={<CreationCreated />} />
           <Route path="/claim" element={<ClaimCReation />} />
           <Route path="/claimed" element={<CreationClaimed />} />
-
         </Routes>
       </Router>
-
-
-
-
-
     </div>
   );
 }
